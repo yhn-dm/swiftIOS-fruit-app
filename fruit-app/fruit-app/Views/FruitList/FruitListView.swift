@@ -12,10 +12,15 @@ struct FruitListView: View {
 
                 List {
                     ForEach(viewModel.fruits) { fruit in
-                        NavigationLink {
-                            FruitDetailView(fruit: fruit)
-                        } label: {
+                        ZStack {
                             FruitRowView(fruit: fruit)
+
+                            NavigationLink {
+                                FruitDetailView(fruit: fruit)
+                            } label: {
+                                EmptyView()
+                            }
+                            .opacity(0)
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)

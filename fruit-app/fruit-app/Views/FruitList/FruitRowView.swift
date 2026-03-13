@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FruitRowView: View {
     let fruit: Fruit
+    var showsChevron: Bool = true
 
     var body: some View {
         HStack(spacing: 16) {
@@ -44,6 +45,11 @@ struct FruitRowView: View {
             }
 
             Spacer()
+
+            if showsChevron {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.secondary)
+            }
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 4)
