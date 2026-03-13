@@ -11,9 +11,9 @@ enum FruitImageLoader {
     private static func loadUIImage(named name: String) -> UIImage? {
         let candidates: [(resource: String, subdirectory: String?)] = [
             (name, nil),
-            (name, "Resources/Fruits"),
             (name, "Fruits"),
-            (name, "fruit-app/Resources/Resources/Fruits")
+            (name, "Resources/Fruits"),
+            (name, "Resources/Resources/Fruits")
         ]
 
         for candidate in candidates {

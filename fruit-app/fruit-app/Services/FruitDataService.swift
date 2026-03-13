@@ -16,6 +16,8 @@ final class FruitDataService {
             Bundle.main.url(forResource: "FruitsData", withExtension: "txt"),
             Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources"),
             Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Data"),
+            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Resources"),
+            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Resources/Data"),
             Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Data")
         ]
 
