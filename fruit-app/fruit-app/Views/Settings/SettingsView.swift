@@ -6,13 +6,18 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    fructusSection
-                    customizationSection
-                    applicationSection
+            ZStack {
+                Color(.systemGroupedBackground)
+                    .ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 24) {
+                        fructusSection
+                        customizationSection
+                        applicationSection
+                    }
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -33,6 +38,13 @@ struct SettingsView: View {
     private var fructusSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
+                Text("Fructus")
+                    .font(.caption.weight(.semibold))
+                    .textCase(.uppercase)
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom, 2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
                 ZStack {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .fill(Color.green.opacity(0.1))
@@ -44,8 +56,6 @@ struct SettingsView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Fructus")
-                        .font(.headline)
                     Text("Most fruits are naturally low in fat, sodium and calories, yet full of vitamins and useful nutrients.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -63,10 +73,13 @@ struct SettingsView: View {
     private var customizationSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
+                Text("Customization")
+                    .font(.caption.weight(.semibold))
+                    .textCase(.uppercase)
+                    .foregroundStyle(.secondary)
+
                 Image(systemName: "paintbrush.fill")
                     .foregroundStyle(.pink)
-                Text("Customization")
-                    .font(.headline)
                 Spacer()
             }
 
@@ -91,7 +104,9 @@ struct SettingsView: View {
     private var applicationSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Application")
-                .font(.headline)
+                .font(.caption.weight(.semibold))
+                .textCase(.uppercase)
+                .foregroundStyle(.secondary)
 
             settingsRow(title: "Developer", value: "John / Jane")
             settingsRow(title: "Designer", value: "Robert Petras")

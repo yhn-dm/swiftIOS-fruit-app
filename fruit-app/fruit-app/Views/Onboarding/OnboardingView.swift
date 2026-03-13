@@ -16,60 +16,62 @@ struct OnboardingView: View {
                     .ignoresSafeArea()
 
                     VStack(spacing: 30) {
-                        Spacer()
+                        Spacer(minLength: 60)
 
                         FruitImageLoader.image(for: item.image)
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 260)
-                            .padding(32)
-                            .background(
-                                Circle()
-                                    .fill(Color.white.opacity(0.96))
-                            )
-                            .clipShape(Circle())
-                            .shadow(color: .black.opacity(0.2), radius: 18, x: 0, y: 10)
+                            .shadow(radius: 22)
 
                         VStack(spacing: 12) {
                             Text(item.title)
-                                .font(.system(size: 36, weight: .bold, design: .rounded))
+                                .font(.system(size: 36, weight: .bold, design: .default))
                                 .foregroundStyle(.white)
 
                             Text(item.headline)
-                                .font(.body)
+                                .font(.system(size: 16, weight: .regular))
                                 .foregroundStyle(.white.opacity(0.9))
                                 .multilineTextAlignment(.center)
-                                .padding(.horizontal, 32)
+                                .padding(.horizontal, 40)
                         }
 
                         Spacer()
 
                         Button(action: {
-                            withAnimation(.spring()) {
+                            withAnimation(.spring(response: 0.45, dampingFraction: 0.85)) {
                                 isOnboarding = false
                             }
                         }) {
                             HStack(spacing: 12) {
                                 Text("Start")
-                                    .fontWeight(.semibold)
-                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 17, weight: .semibold))
+
+                                ZStack {
+                                    Circle()
+                                        .strokeBorder(Color.white.opacity(0.6), lineWidth: 1.5)
+                                        .frame(width: 30, height: 30)
+
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 14, weight: .semibold))
+                                }
                             }
                             .padding(.horizontal, 40)
-                            .padding(.vertical, 16)
+                            .padding(.vertical, 14)
                             .background(
                                 Capsule()
-                                    .fill(Color.white.opacity(0.95))
+                                    .fill(Color.white.opacity(0.96))
                             )
-                            .foregroundStyle(Color.black.opacity(0.85))
-                            .shadow(color: .black.opacity(0.25), radius: 14, x: 0, y: 6)
+                            .foregroundStyle(Color.blue.opacity(0.95))
+                            .shadow(color: .black.opacity(0.25), radius: 12, x: 0, y: 8)
                         }
-                        .padding(.bottom, 40)
+                        .padding(.bottom, 46)
                     }
                     .padding(.horizontal)
                 }
             }
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
     }
 }
 

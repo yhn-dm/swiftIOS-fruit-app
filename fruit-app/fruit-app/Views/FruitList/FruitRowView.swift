@@ -35,10 +35,10 @@ struct FruitRowView: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(fruit.title)
-                    .font(.headline)
+                    .font(.system(size: 18, weight: .semibold))
 
                 Text(fruit.headline)
-                    .font(.subheadline)
+                    .font(.system(size: 14))
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
             }
@@ -48,10 +48,10 @@ struct FruitRowView: View {
             Image(systemName: "chevron.right")
                 .foregroundStyle(.secondary)
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 10)
         .padding(.horizontal, 4)
         .background(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color(.systemBackground))
                 .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
         )

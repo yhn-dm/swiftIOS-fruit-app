@@ -3,80 +3,63 @@ import SwiftUI
 struct FruitDetailView: View {
     let fruit: Fruit
 
-    private var headerGradient: LinearGradient {
-        if let first = fruit.gradientColors.first,
-           let last = fruit.gradientColors.last {
-            return LinearGradient(
-                colors: [first, last],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        } else {
-            return LinearGradient(
-                colors: [Color.orange.opacity(0.6), Color.orange.opacity(0.2)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        }
-    }
-
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 0) {
-                ZStack {
-                    headerGradient
-                        .frame(height: 340)
-                        .ignoresSafeArea(edges: .top)
+        ZStack(alignment: .top) {
+            if let firstColor = fruit.gradientColors.first,
+               let lastColor = fruit.gradientColors.last {
+                LinearGradient(
+                    colors: [firstColor, lastColor],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea(edges: .top)
+            }
 
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
                     FruitImageLoader.image(for: fruit.image)
                         .resizable()
                         .scaledToFit()
                         .frame(height: 230)
-                        .padding(30)
-                        .background(
-                            Circle()
-                                .fill(Color.white.opacity(0.96))
-                        )
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.18), radius: 18, x: 0, y: 10)
-                }
+                        .shadow(radius: 22)
+                        .padding(.top, 80)
 
-                VStack(alignment: .leading, spacing: 20) {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 18) {
                         Text(fruit.title)
-                            .font(.largeTitle.bold())
+                            .font(.system(size: 32, weight: .bold))
 
                         Text(fruit.headline)
-                            .font(.headline)
+                            .font(.system(size: 17))
                             .foregroundStyle(.secondary)
+
+                        FruitNutrientsView(nutrition: fruit.nutrition)
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Learn more about \(fruit.title)")
+                                .font(.system(size: 14, weight: .semibold))
+                                .textCase(.uppercase)
+                                .foregroundStyle(.secondary)
+
+                            Text(fruit.description)
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.leading)
+                        }
                     }
-
-                    FruitNutrientsView(nutrition: fruit.nutrition)
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Learn more about \(fruit.title)")
-                            .font(.headline)
-                            .textCase(.uppercase)
-
-                        Text(fruit.description)
-                            .font(.body)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.leading)
-                    }
+                    .padding(.horizontal)
+                    .padding(.top, 32)
+                    .padding(.bottom, 40)
+                    .background(
+                        RoundedRectangle(cornerRadius: 32, style: .continuous)
+                            .fill(Color(.systemBackground))
+                            .ignoresSafeArea(edges: .bottom)
+                    )
+                    .offset(y: 40)
                 }
-                .padding(.horizontal)
-                .padding(.top, 24)
-                .padding(.bottom, 32)
-                .background(
-                    RoundedRectangle(cornerRadius: 32, style: .continuous)
-                        .fill(Color(.systemBackground))
-                        .shadow(color: .black.opacity(0.06), radius: 16, x: 0, y: -4)
-                )
             }
         }
         .navigationTitle(fruit.title)
         .navigationBarTitleDisplayMode(.inline)
-        .background(headerGradient.ignoresSafeArea())
     }
 }
 

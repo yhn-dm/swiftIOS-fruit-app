@@ -7,15 +7,8 @@ struct FruitListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(
-                    colors: [
-                        Color.green.opacity(0.25),
-                        Color.blue.opacity(0.05)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                Color(.systemGroupedBackground)
+                    .ignoresSafeArea()
 
                 List {
                     ForEach(viewModel.fruits) { fruit in
@@ -23,9 +16,9 @@ struct FruitListView: View {
                             FruitDetailView(fruit: fruit)
                         } label: {
                             FruitRowView(fruit: fruit)
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.clear)
                         }
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                     }
                 }
                 .listStyle(.plain)
