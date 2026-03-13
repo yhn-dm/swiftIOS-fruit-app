@@ -5,7 +5,7 @@ struct FruitRowView: View {
 
     var body: some View {
         HStack(spacing: 16) {
-            Image(fruit.imageName)
+            FruitImageLoader.image(for: fruit.imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 72, height: 72)
@@ -50,6 +50,18 @@ struct FruitRowView: View {
         FruitRowView(fruit: sample)
             .padding()
             .background(Color(.systemGroupedBackground))
+    }
+}
+
+struct FruitRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            if let sample = try? FruitDataService.shared.loadFruits().first {
+                FruitRowView(fruit: sample)
+                    .padding()
+                    .background(Color(.systemGroupedBackground))
+            }
+        }
     }
 }
 

@@ -12,7 +12,14 @@ final class FruitDataService {
     private init() {}
 
     func loadFruits() throws -> [Fruit] {
-        guard let url = Bundle.main.url(forResource: "FruitsData", withExtension: "txt") else {
+        let candidateURLs: [URL?] = [
+            Bundle.main.url(forResource: "FruitsData", withExtension: "txt"),
+            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources"),
+            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Data"),
+            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Data")
+        ]
+
+        guard let url = candidateURLs.compactMap({ $0 }).first else {
             return Self.fallbackFruits
         }
 
@@ -37,13 +44,7 @@ final class FruitDataService {
             let description = Self.multilineValue(for: "description", in: component) ?? ""
             let nutritionArray = Self.arrayValue(for: "nutrition", in: component)
 
-            let gradientLight = Self.colorName(prefix: "Color", suffix: "Light", in: component)
-            let gradientDark = Self.colorName(prefix: "Color", suffix: "Dark", in: component)
-
-            let colors: [Color] = [
-                Color(gradientLight ?? "ColorBlueberryLight"),
-                Color(gradientDark ?? "ColorBlueberryDark")
-            ]
+            let colors = Self.defaultGradient(for: title)
 
             let fruit = Fruit(
                 title: title,
@@ -102,12 +103,35 @@ final class FruitDataService {
         return nil
     }
 
+    private static func defaultGradient(for title: String) -> [Color] {
+        switch title.lowercased() {
+        case "strawberry":
+            return [Color.red, Color.pink]
+        case "lemon", "lime":
+            return [Color.yellow, Color.orange]
+        case "plum", "grape", "grapefruit":
+            return [Color.purple, Color.pink]
+        case "pomegranate", "cherry":
+            return [Color.red, Color.orange]
+        case "pear", "gooseberry":
+            return [Color.green, Color.yellow]
+        case "mango":
+            return [Color.orange, Color.red]
+        case "watermelon":
+            return [Color.red, Color.green]
+        case "apple":
+            return [Color.green, Color.red]
+        default:
+            return [Color.blue, Color.purple]
+        }
+    }
+
     private static let fallbackFruits: [Fruit] = [
         Fruit(
             title: "Blueberry",
             headline: "Blueberries are sweet, nutritious and wildly popular fruit all over the world.",
             imageName: "blueberry",
-            gradientColors: [Color("ColorBlueberryLight"), Color("ColorBlueberryDark")],
+            gradientColors: defaultGradient(for: "Blueberry"),
             description: "Blueberries are perennial flowering plants with blue or purple berries and are widely appreciated for their taste and health benefits.",
             nutrition: ["240 kJ (57 kcal)", "9.96 g", "0.33 g", "0.74 g", "Vitamins A, C, K", "Manganese, Iron, Calcium"]
         ),
@@ -115,7 +139,7 @@ final class FruitDataService {
             title: "Strawberry",
             headline: "Widely appreciated for its aroma, red color, juicy texture, and sweetness.",
             imageName: "strawberry",
-            gradientColors: [Color("ColorStrawberryLight"), Color("ColorStrawberryDark")],
+            gradientColors: defaultGradient(for: "Strawberry"),
             description: "Strawberries are cultivated worldwide and enjoyed fresh or in many desserts and drinks.",
             nutrition: ["136 kJ (33 kcal)", "4.89 g", "0.3 g", "0.67 g", "Vitamin C, B vitamins", "Calcium, Iron, Magnesium"]
         ),
@@ -123,7 +147,7 @@ final class FruitDataService {
             title: "Grapefruit",
             headline: "Sweet, bell-shaped fruits that have been enjoyed since ancient times.",
             imageName: "grapefruit",
-            gradientColors: [Color("ColorGrapefruitLight"), Color("ColorGrapefruitDark")],
+            gradientColors: defaultGradient(for: "Grapefruit"),
             description: "Grapefruit is a citrus hybrid known for its sour to semi-sweet taste and refreshing juice.",
             nutrition: ["138 kJ (33 kcal)", "7.31 g", "0.10 g", "0.8 g", "Vitamin C, E", "Calcium, Potassium"]
         )

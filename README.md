@@ -55,7 +55,7 @@ This clear separation makes the app easier to maintain, extend, and test.
 
 The project makes use of:
 
-- **Resources/Data** for structured fruit data (`FruitsData.txt`).
+- **fruit-app/fruit-app/Resources/Data** for structured fruit data (`FruitsData.txt`).
 - **Color assets** for light/dark variants of fruit-themed colors.
 - Image and design assets that reflect the modern, gradient-based UI seen in the reference screens.
 

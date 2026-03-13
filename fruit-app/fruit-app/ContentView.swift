@@ -44,7 +44,7 @@ private struct OnboardingSliderView: View {
                 VStack(spacing: 24) {
                     Spacer(minLength: 40)
 
-                    Image(currentFruit.imageName)
+                    FruitImageLoader.image(for: currentFruit.imageName)
                         .resizable()
                         .scaledToFit()
                         .frame(maxHeight: 280)
@@ -124,4 +124,13 @@ private extension Collection {
         .environmentObject(FruitListViewModel())
         .environmentObject(SettingsViewModel())
         .environmentObject(OnboardingViewModel())
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(FruitListViewModel())
+            .environmentObject(SettingsViewModel())
+            .environmentObject(OnboardingViewModel())
+    }
 }

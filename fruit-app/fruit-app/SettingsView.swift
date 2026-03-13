@@ -115,3 +115,10 @@ struct SettingsView: View {
         .environmentObject(SettingsViewModel())
 }
 
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+            .environmentObject(SettingsViewModel())
+    }
+}
+

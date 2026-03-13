@@ -32,7 +32,7 @@ struct FruitDetailView: View {
             VStack(spacing: 16) {
                 Spacer(minLength: 20)
 
-                Image(viewModel.imageName)
+                FruitImageLoader.image(for: viewModel.imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(maxHeight: 260)
@@ -141,6 +141,18 @@ struct FruitDetailView: View {
     if let sample = try? FruitDataService.shared.loadFruits().first {
         NavigationStack {
             FruitDetailView(fruit: sample)
+        }
+    }
+}
+
+struct FruitDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            if let sample = try? FruitDataService.shared.loadFruits().first {
+                NavigationStack {
+                    FruitDetailView(fruit: sample)
+                }
+            }
         }
     }
 }

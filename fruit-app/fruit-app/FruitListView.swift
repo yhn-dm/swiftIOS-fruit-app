@@ -47,3 +47,11 @@ struct FruitListView: View {
         .environmentObject(SettingsViewModel())
 }
 
+struct FruitListView_Previews: PreviewProvider {
+    static var previews: some View {
+        FruitListView()
+            .environmentObject(FruitListViewModel())
+            .environmentObject(SettingsViewModel())
+    }
+}
+
