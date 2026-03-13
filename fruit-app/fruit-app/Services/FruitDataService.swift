@@ -13,11 +13,16 @@ final class FruitDataService {
 
     func loadFruits() throws -> [Fruit] {
         guard let url = Bundle.main.url(forResource: "FruitsData", withExtension: "txt") else {
-            throw FruitDataServiceError.fileNotFound
+            return Self.fallbackFruits
         }
 
-        let rawString = try String(contentsOf: url, encoding: .utf8)
-        return parseFruits(from: rawString)
+        do {
+            let rawString = try String(contentsOf: url, encoding: .utf8)
+            let parsed = parseFruits(from: rawString)
+            return parsed.isEmpty ? Self.fallbackFruits : parsed
+        } catch {
+            return Self.fallbackFruits
+        }
     }
 
     private func parseFruits(from raw: String) -> [Fruit] {
@@ -96,5 +101,32 @@ final class FruitDataService {
         }
         return nil
     }
+
+    private static let fallbackFruits: [Fruit] = [
+        Fruit(
+            title: "Blueberry",
+            headline: "Blueberries are sweet, nutritious and wildly popular fruit all over the world.",
+            imageName: "blueberry",
+            gradientColors: [Color("ColorBlueberryLight"), Color("ColorBlueberryDark")],
+            description: "Blueberries are perennial flowering plants with blue or purple berries and are widely appreciated for their taste and health benefits.",
+            nutrition: ["240 kJ (57 kcal)", "9.96 g", "0.33 g", "0.74 g", "Vitamins A, C, K", "Manganese, Iron, Calcium"]
+        ),
+        Fruit(
+            title: "Strawberry",
+            headline: "Widely appreciated for its aroma, red color, juicy texture, and sweetness.",
+            imageName: "strawberry",
+            gradientColors: [Color("ColorStrawberryLight"), Color("ColorStrawberryDark")],
+            description: "Strawberries are cultivated worldwide and enjoyed fresh or in many desserts and drinks.",
+            nutrition: ["136 kJ (33 kcal)", "4.89 g", "0.3 g", "0.67 g", "Vitamin C, B vitamins", "Calcium, Iron, Magnesium"]
+        ),
+        Fruit(
+            title: "Grapefruit",
+            headline: "Sweet, bell-shaped fruits that have been enjoyed since ancient times.",
+            imageName: "grapefruit",
+            gradientColors: [Color("ColorGrapefruitLight"), Color("ColorGrapefruitDark")],
+            description: "Grapefruit is a citrus hybrid known for its sour to semi-sweet taste and refreshing juice.",
+            nutrition: ["138 kJ (33 kcal)", "7.31 g", "0.10 g", "0.8 g", "Vitamin C, E", "Calcium, Potassium"]
+        )
+    ]
 }
 
