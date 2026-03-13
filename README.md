@@ -1,116 +1,112 @@
 swiftIOS-fruit-app
 ===================
 
-> An educational SwiftUI project that showcases a beautiful, fruit-themed iOS application built with a clean MVVM architecture.
-
 ## Overview
 
-This repository contains a small but complete iOS application written in **SwiftUI**.  
-The goal of the project is to present a curated list of fruits with rich visuals and smooth navigation between multiple screens (onboarding slider, fruit list, settings, and detailed views).
+`swiftIOS-fruit-app` is a small but polished iOS application built entirely with SwiftUI.  
+It showcases a curated list of fruits, each with a friendly description and a structured view of its nutritional values, while demonstrating a clean MVVM architecture.
 
-The app is inspired by a modern, card-based design with colorful gradients and large fruit illustrations, similar to the mockups used in the project brief.  
-It is meant both as a **learning exercise** (SwiftUI + MVVM) and as a **clean example** of how to structure a small app in a professional way.
+The app guides the user through a welcoming onboarding slider, then presents a list of fruits.  
+From this list, users can drill into a detailed screen for each fruit and access a Settings screen that lets them restart the onboarding flow and review basic app information.
 
-## Main Features
+## Features
 
-- **Onboarding / Home screen**
-  - Slider-style presentation with large fruit imagery.
-  - Prominent **“Start”** button that navigates to the fruit list.
+- **Onboarding slider**
+  - Page-style slider introducing the app with large fruit imagery and gradient backgrounds.
+  - Prominent “Start” button that transitions to the main list of fruits.
 
-- **Fruit list**
-  - Scrollable list of fruits with:
-    - Fruit image.
-    - Name (title).
-    - Short 1–2 line description.
-  - Top-right **Settings** button that opens the settings screen.
-  - Tap on any fruit to open its detailed view.
+- **Fruits list**
+  - Scrollable list of fruits, each row showing:
+    - Thumbnail image
+    - Fruit name
+    - Short, one- or two-line headline
+  - Tapping a row opens a detailed screen for the selected fruit.
+  - Settings button in the navigation bar to access the Settings screen.
 
 - **Fruit detail**
-  - Large hero image of the selected fruit.
-  - Fruit name and full description.
-  - Room for additional information (nutrition, sections, etc.) if needed.
+  - Large hero image of the fruit with a color-coordinated gradient.
+  - Fruit name and headline.
+  - “Nutritional value per 100g” section with key nutritional data.
+  - Longer descriptive text to learn more about each fruit.
 
 - **Settings**
-  - Simple settings screen matching the visual style of the designs (cards/sections, toggles).
-  - Intended for non-critical app preferences and demo options (e.g. restart onboarding).
+  - Informational section describing the purpose of the app.
+  - Customization section with a toggle to restart the onboarding experience.
+  - Application metadata: developer, designer, compatibility and website link.
 
-All screens are designed to follow the provided UI references while staying idiomatic to SwiftUI.
+## Architecture & Technology
 
-## Architecture
+- **SwiftUI only** – no UIKit.
+- **MVVM** – clear separation between:
+  - `Models` (e.g. `Fruit`, `OnboardingItem`)
+  - `ViewModels` (e.g. `OnboardingViewModel`, `FruitListViewModel`)
+  - `Views` (Onboarding, Fruit list, Fruit detail, Settings, nutrients, row views, etc.)
+- Data loaded from bundled resources:
+  - `Resources/Resources/Data/FruitsData.txt` for fruit content and nutrition.
+  - Color assets in `Resources/Resources/Colors` and image assets in the app asset catalog.
 
-The project follows the **MVVM (Model–View–ViewModel)** pattern:
+## Requirements
 
-- **Model**  
-  Represents the fruit domain objects (name, description, image reference, color, etc.), typically loaded from bundled data resources.
-
-- **ViewModel**  
-  Exposes observable state and business logic to drive the SwiftUI views (loading fruits, selected fruit, simple settings flags, etc.).
-
-- **View**  
-  SwiftUI views that focus purely on layout, styling, and binding to published properties coming from the ViewModels.
-
-This clear separation makes the app easier to maintain, extend, and test.
-
-## Resources and Assets
-
-The project makes use of:
-
-- **fruit-app/fruit-app/Resources/Data** for structured fruit data (`FruitsData.txt`).
-- **Color assets** for light/dark variants of fruit-themed colors.
-- Image and design assets that reflect the modern, gradient-based UI seen in the reference screens.
-
-All resources are kept under the `Resources` folder to keep the Xcode project clean and organized.
+- Xcode with SwiftUI support (Xcode 15 or later recommended).
+- iOS 14 or later as deployment target.
+- Swift 5.x.
 
 ## Getting Started
 
-### Requirements
-
-- Xcode (recent version supporting SwiftUI and iOS 14+).
-- iOS 14 or later as the minimum deployment target (simulator or physical device).
-
-### Build & Run
-
-1. Clone the repository:
+1. **Clone the repository**
 
    ```bash
    git clone https://github.com/yhn-dm/swiftIOS-fruit-app.git
-   cd swiftIOS-fruit-app
+   cd swiftIOS-fruit-app/fruit-app
    ```
 
-2. Open the Xcode project:
+2. **Open the project**
 
-   ```bash
-   open fruit-app/fruit-app.xcodeproj
-   ```
+   - Open `fruit-app.xcodeproj` in Xcode.
+   - Select the `fruit-app` scheme and a simulator or a connected device.
 
-3. Select the desired simulator or a connected device.
-4. Press **Run** in Xcode.
+3. **Run**
 
-The app should launch into the onboarding/home screen, from which you can navigate to the fruit list, settings, and detail screens.
+   - Press **Run** (⌘R) in Xcode.
+   - The app launches on the selected device, starting with the onboarding slider.
 
-## Project Goals
+## Project Structure (high level)
 
-This project is primarily intended to:
+- `fruit-app/fruit-app/`
+  - `Models/` – data models such as `Fruit` and `OnboardingItem`.
+  - `ViewModels/` – view models like `OnboardingViewModel` and `FruitListViewModel`.
+  - `Views/`
+    - `Onboarding/` – onboarding slider.
+    - `FruitList/` – list view and fruit row.
+    - `FruitDetail/` – fruit detail and nutrients view.
+    - `Settings/` – settings screen.
+  - `Services/` – data loading logic (`FruitDataService`).
+  - `Resources/` – color assets and fruit data.
+  - `fruit_appApp.swift` – application entry point.
+  - `ContentView.swift` – decides between onboarding and the main list.
 
-- Demonstrate a **clean, beginner-friendly SwiftUI codebase**.
-- Practice **MVVM architecture** with simple, testable components.
-- Explore how to:
-  - Organize assets and resources in a real project.
-  - Build consistent, visually appealing UIs.
-  - Structure navigation flows across multiple screens.
+This layout keeps UI, state management and data access clearly separated, making the app easier to read and extend.
 
-Even though this is a learning project, the codebase aims to keep a **professional tone and clarity**, so it can be reused as a reference for future SwiftUI work.
+## Design
+
+The UI is inspired by modern, card-based product designs:
+
+- Bright gradients and high-quality fruit imagery.
+- Clear hierarchy of text styles for titles, headlines and body text.
+- Simple, recognizable SF Symbols in navigation and Settings.
+- Layouts tuned for readability on recent iPhone devices and for both light and dark mode.
 
 ## Contributing
 
-Contributions, suggestions, and improvements are welcome.  
-If you spot an issue or have an idea to enhance the app (new fruits, animations, better accessibility, etc.), feel free to:
+This repository is primarily intended for learning and experimentation with SwiftUI and MVVM.  
+If you want to extend it (new fruits, filters, widgets, etc.), you can:
 
-- Open an issue describing the change.
-- Or submit a pull request with a clear explanation and screenshots when relevant.
+1. Fork the repository.
+2. Create a feature branch.
+3. Implement your changes with clear, focused commits.
+4. Open a pull request describing what you changed and why.
 
 ## License
 
-This project is shared for educational purposes.  
-You are free to explore, learn from, and adapt it for your own experiments or studies.  
-If you reuse significant parts of the code or design, a small attribution back to this repository is appreciated but not strictly required.
+The project is provided for educational and demonstration purposes.  
+You are welcome to copy and adapt the code in your own projects. If you publish a derivative work, please consider mentioning this repository as a source of inspiration.
