@@ -2,11 +2,21 @@ import SwiftUI
 
 enum FruitDataService {
     static func loadFruits() -> [Fruit] {
-        guard let url = Bundle.main.url(
-            forResource: "FruitsData",
-            withExtension: "txt",
-            subdirectory: "Resources/Resources/Data"
-        ) else {
+        let candidates: [String?] = [
+            nil,
+            "Resources",
+            "Resources/Data",
+            "Resources/Resources",
+            "Resources/Resources/Data"
+        ]
+
+        guard let url = candidates.compactMap({ subdirectory in
+            Bundle.main.url(
+                forResource: "FruitsData",
+                withExtension: "txt",
+                subdirectory: subdirectory
+            )
+        }).first else {
             return []
         }
 
@@ -19,6 +29,39 @@ enum FruitDataService {
             return parseFruits(from: content)
         } catch {
             return []
+        }
+    }
+
+    private static func gradientColors(for title: String) -> [Color] {
+        switch title.lowercased() {
+        case "blueberry":
+            return [.blue.opacity(0.6), .indigo]
+        case "strawberry":
+            return [.red.opacity(0.7), .pink]
+        case "lemon":
+            return [.yellow, .orange]
+        case "plum":
+            return [.purple, .indigo]
+        case "lime":
+            return [.green, .mint]
+        case "pomegranate":
+            return [.pink, .red]
+        case "pear":
+            return [.green.opacity(0.7), .yellow]
+        case "gooseberry":
+            return [.green, .teal]
+        case "mango":
+            return [.orange, .red]
+        case "watermelon":
+            return [.pink, .green]
+        case "cherry":
+            return [.red, .purple]
+        case "grapefruit":
+            return [.orange, .pink]
+        case "apple":
+            return [.red, .orange]
+        default:
+            return [.green, .blue]
         }
     }
 
@@ -45,26 +88,6 @@ enum FruitDataService {
             let title = extractValue(for: "title") ?? "Unknown"
             let headline = extractValue(for: "headline") ?? ""
             let image = extractValue(for: "image") ?? ""
-
-            var gradientColors: [Color] = []
-            if let gradientRange = rawBlock.range(of: "gradientColors:") {
-                let substringFromGradient = rawBlock[gradientRange.upperBound...]
-                if let closingBracket = substringFromGradient.firstIndex(of: "]") {
-                    let gradientBlock = substringFromGradient[..<closingBracket]
-                    let colorNames = gradientBlock.components(separatedBy: "Color(")
-                    for colorNamePart in colorNames {
-                        guard let endIndex = colorNamePart.firstIndex(of: ")") else { continue }
-                        let rawName = colorNamePart[..<endIndex]
-                        let cleanedName = rawName
-                            .replacingOccurrences(of: "\"", with: "")
-                            .replacingOccurrences(of: ",", with: "")
-                            .trimmingCharacters(in: .whitespacesAndNewlines)
-                        if !cleanedName.isEmpty {
-                            gradientColors.append(Color(cleanedName))
-                        }
-                    }
-                }
-            }
 
             var descriptionText = ""
             if let descriptionRange = rawBlock.range(of: "description: \"\"\"") {
@@ -94,7 +117,7 @@ enum FruitDataService {
                 title: title,
                 headline: headline,
                 image: image,
-                gradientColors: gradientColors,
+                gradientColors: gradientColors(for: title),
                 description: descriptionText,
                 nutrition: nutritionValues
             )

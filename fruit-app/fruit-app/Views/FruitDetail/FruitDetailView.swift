@@ -3,40 +3,53 @@ import SwiftUI
 struct FruitDetailView: View {
     let fruit: Fruit
 
+    private var headerGradient: LinearGradient {
+        if let first = fruit.gradientColors.first,
+           let last = fruit.gradientColors.last {
+            return LinearGradient(
+                colors: [first, last],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        } else {
+            return LinearGradient(
+                colors: [Color.orange.opacity(0.6), Color.orange.opacity(0.2)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+    }
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 24) {
+            VStack(spacing: 0) {
                 ZStack {
-                    if let firstColor = fruit.gradientColors.first,
-                       let lastColor = fruit.gradientColors.last {
-                        LinearGradient(
-                            colors: [firstColor, lastColor],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .frame(height: 320)
-                        .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
-                    } else {
-                        RoundedRectangle(cornerRadius: 32, style: .continuous)
-                            .fill(Color.orange.opacity(0.3))
-                            .frame(height: 320)
-                    }
+                    headerGradient
+                        .frame(height: 340)
+                        .ignoresSafeArea(edges: .top)
 
                     FruitImageLoader.image(for: fruit.image)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 220)
-                        .shadow(radius: 20)
+                        .frame(height: 230)
+                        .padding(30)
+                        .background(
+                            Circle()
+                                .fill(Color.white.opacity(0.96))
+                        )
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.18), radius: 18, x: 0, y: 10)
                 }
-                .padding(.top)
 
-                VStack(alignment: .leading, spacing: 16) {
-                    Text(fruit.title)
-                        .font(.largeTitle.bold())
+                VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(fruit.title)
+                            .font(.largeTitle.bold())
 
-                    Text(fruit.headline)
-                        .font(.headline)
-                        .foregroundStyle(.secondary)
+                        Text(fruit.headline)
+                            .font(.headline)
+                            .foregroundStyle(.secondary)
+                    }
 
                     FruitNutrientsView(nutrition: fruit.nutrition)
 
@@ -52,12 +65,18 @@ struct FruitDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.top, 24)
                 .padding(.bottom, 32)
+                .background(
+                    RoundedRectangle(cornerRadius: 32, style: .continuous)
+                        .fill(Color(.systemBackground))
+                        .shadow(color: .black.opacity(0.06), radius: 16, x: 0, y: -4)
+                )
             }
         }
         .navigationTitle(fruit.title)
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color(.systemBackground))
+        .background(headerGradient.ignoresSafeArea())
     }
 }
 

@@ -6,18 +6,31 @@ struct FruitListView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(viewModel.fruits) { fruit in
-                    NavigationLink {
-                        FruitDetailView(fruit: fruit)
-                    } label: {
-                        FruitRowView(fruit: fruit)
+            ZStack {
+                LinearGradient(
+                    colors: [
+                        Color.green.opacity(0.25),
+                        Color.blue.opacity(0.05)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+
+                List {
+                    ForEach(viewModel.fruits) { fruit in
+                        NavigationLink {
+                            FruitDetailView(fruit: fruit)
+                        } label: {
+                            FruitRowView(fruit: fruit)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                        }
                     }
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .background(Color(.systemBackground))
             .navigationTitle("Fruits")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

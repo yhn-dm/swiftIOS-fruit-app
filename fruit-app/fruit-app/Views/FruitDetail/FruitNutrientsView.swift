@@ -5,31 +5,40 @@ struct FruitNutrientsView: View {
 
     private let labels = ["Energy", "Sugar", "Fat", "Protein", "Vitamins", "Minerals"]
 
+    private var items: [(label: String, value: String?)] {
+        labels.enumerated().map { index, label in
+            let value = nutrition.indices.contains(index) ? nutrition[index] : nil
+            return (label, value)
+        }
+    }
+
     var body: some View {
         DisclosureGroup("Nutritional value per 100g") {
             VStack(spacing: 8) {
-                ForEach(labels.indices, id: \.self) { index in
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "info.circle")
-                            .foregroundStyle(.orange)
+                ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                    VStack(spacing: 0) {
+                        HStack(alignment: .top, spacing: 12) {
+                            Image(systemName: "info.circle")
+                                .foregroundStyle(.orange)
 
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(labels[index])
-                                .font(.subheadline.weight(.semibold))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(item.label)
+                                    .font(.subheadline.weight(.semibold))
 
-                            if nutrition.indices.contains(index) {
-                                Text(nutrition[index])
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                                if let value = item.value {
+                                    Text(value)
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
                             }
+
+                            Spacer()
                         }
+                        .padding(.vertical, 6)
 
-                        Spacer()
-                    }
-                    .padding(.vertical, 6)
-
-                    if index < labels.indices.last {
-                        Divider()
+                        if index < items.count - 1 {
+                            Divider()
+                        }
                     }
                 }
             }

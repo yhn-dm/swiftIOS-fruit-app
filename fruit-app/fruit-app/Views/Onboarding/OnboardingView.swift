@@ -22,11 +22,17 @@ struct OnboardingView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 260)
-                            .shadow(radius: 20)
+                            .padding(32)
+                            .background(
+                                Circle()
+                                    .fill(Color.white.opacity(0.96))
+                            )
+                            .clipShape(Circle())
+                            .shadow(color: .black.opacity(0.2), radius: 18, x: 0, y: 10)
 
                         VStack(spacing: 12) {
                             Text(item.title)
-                                .font(.largeTitle.bold())
+                                .font(.system(size: 36, weight: .bold, design: .rounded))
                                 .foregroundStyle(.white)
 
                             Text(item.headline)
@@ -48,14 +54,14 @@ struct OnboardingView: View {
                                     .fontWeight(.semibold)
                                 Image(systemName: "arrow.right")
                             }
-                            .padding(.horizontal, 36)
-                            .padding(.vertical, 14)
+                            .padding(.horizontal, 40)
+                            .padding(.vertical, 16)
                             .background(
                                 Capsule()
                                     .fill(Color.white.opacity(0.95))
                             )
                             .foregroundStyle(Color.black.opacity(0.85))
-                            .shadow(radius: 10, y: 4)
+                            .shadow(color: .black.opacity(0.25), radius: 14, x: 0, y: 6)
                         }
                         .padding(.bottom, 40)
                     }

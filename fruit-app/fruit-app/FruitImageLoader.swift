@@ -13,7 +13,7 @@ enum FruitImageLoader {
             (name, nil),
             (name, "Resources/Fruits"),
             (name, "Fruits"),
-            (name, "fruit-app/Resources/Resources/Fruits")
+            (name, "Resources/Resources/Fruits")
         ]
 
         for candidate in candidates {

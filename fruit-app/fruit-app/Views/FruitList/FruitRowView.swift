@@ -13,18 +13,24 @@ struct FruitRowView: View {
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
-                    .frame(width: 64, height: 64)
-                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .frame(width: 72, height: 72)
+                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
                 } else {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
                         .fill(Color.green.opacity(0.4))
-                        .frame(width: 64, height: 64)
+                        .frame(width: 72, height: 72)
                 }
 
                 FruitImageLoader.image(for: fruit.image)
                     .resizable()
                     .scaledToFit()
-                    .padding(10)
+                    .padding(14)
+                    .background(
+                        Circle()
+                            .fill(Color.white.opacity(0.92))
+                    )
+                    .clipShape(Circle())
+                    .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
             }
 
             VStack(alignment: .leading, spacing: 4) {
@@ -42,7 +48,13 @@ struct FruitRowView: View {
             Image(systemName: "chevron.right")
                 .foregroundStyle(.secondary)
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
+        )
     }
 }
 
