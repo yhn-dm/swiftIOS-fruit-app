@@ -23,8 +23,10 @@ struct FruitListView: View {
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
+                .padding(.vertical, 8)
             }
             .navigationTitle("Fruits")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
