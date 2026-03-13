@@ -44,7 +44,7 @@ private struct OnboardingSliderView: View {
                 VStack(spacing: 24) {
                     Spacer(minLength: 40)
 
-                    FruitImageLoader.image(for: currentFruit.imageName)
+                    Image(currentFruit.imageName)
                         .resizable()
                         .scaledToFit()
                         .frame(maxHeight: 280)

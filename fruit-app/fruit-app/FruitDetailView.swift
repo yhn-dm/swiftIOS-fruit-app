@@ -32,7 +32,7 @@ struct FruitDetailView: View {
             VStack(spacing: 16) {
                 Spacer(minLength: 20)
 
-                FruitImageLoader.image(for: viewModel.imageName)
+                Image(viewModel.imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(maxHeight: 260)

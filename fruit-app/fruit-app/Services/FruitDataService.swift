@@ -12,16 +12,7 @@ final class FruitDataService {
     private init() {}
 
     func loadFruits() throws -> [Fruit] {
-        let candidateURLs: [URL?] = [
-            Bundle.main.url(forResource: "FruitsData", withExtension: "txt"),
-            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources"),
-            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Data"),
-            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Resources"),
-            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Resources/Resources/Data"),
-            Bundle.main.url(forResource: "FruitsData", withExtension: "txt", subdirectory: "Data")
-        ]
-
-        guard let url = candidateURLs.compactMap({ $0 }).first else {
+        guard let url = Bundle.main.url(forResource: "FruitsData", withExtension: "txt") else {
             return Self.fallbackFruits
         }
 

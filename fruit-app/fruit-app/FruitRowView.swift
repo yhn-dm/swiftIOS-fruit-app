@@ -5,7 +5,7 @@ struct FruitRowView: View {
 
     var body: some View {
         HStack(spacing: 16) {
-            FruitImageLoader.image(for: fruit.imageName)
+            Image(fruit.imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 72, height: 72)
