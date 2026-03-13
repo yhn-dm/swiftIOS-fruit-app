@@ -1,7 +1,3 @@
-//
-// Fichier fruit pour modéliser un fruit de manière agréable à lire.
-//
-
 import SwiftUI
 
 struct Fruit: Identifiable, Hashable {

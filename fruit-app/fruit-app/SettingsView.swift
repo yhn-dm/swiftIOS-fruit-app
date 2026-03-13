@@ -1,7 +1,3 @@
-//
-// Cette vue regroupe les réglages de l’app de façon douce et lisible.
-//
-
 import SwiftUI
 
 struct SettingsView: View {

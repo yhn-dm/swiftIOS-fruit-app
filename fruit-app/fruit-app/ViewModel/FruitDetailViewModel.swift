@@ -1,7 +1,3 @@
-//
-// Vue-modèle pour raconter l'histoire détaillée de chaque fruit.
-//
-
 import Foundation
 import SwiftUI
 

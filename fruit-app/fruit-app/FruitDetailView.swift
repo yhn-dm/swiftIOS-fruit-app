@@ -1,7 +1,3 @@
-//
-// Cette vue détail met un fruit en pleine lumière avec ses infos clés.
-//
-
 import SwiftUI
 
 struct FruitDetailView: View {

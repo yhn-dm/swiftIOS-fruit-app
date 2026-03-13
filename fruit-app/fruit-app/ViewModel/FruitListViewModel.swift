@@ -1,7 +1,3 @@
-//
-// Vue-modèle simple pour porter la liste savoureuse des fruits.
-//
-
 import Foundation
 import SwiftUI
 

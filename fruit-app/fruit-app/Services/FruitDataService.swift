@@ -1,7 +1,3 @@
-//
-// Petit service rustique pour charger nos fruits depuis les ressources.
-//
-
 import Foundation
 import SwiftUI
 
@@ -25,11 +21,8 @@ final class FruitDataService {
     }
 
     private func parseFruits(from raw: String) -> [Fruit] {
-        // Le fichier contient du code Swift; on reconstruit les fruits de manière simplifiée.
-        // Pour la phase 1, on propose une approche minimale en dur si le parsing devient fragile.
         var fruits: [Fruit] = []
 
-        // Séparation naïve par "Fruit(" pour retrouver chaque bloc.
         let components = raw.components(separatedBy: "Fruit(").dropFirst()
 
         for component in components {
@@ -97,7 +90,6 @@ final class FruitDataService {
     }
 
     private static func colorName(prefix: String, suffix: String, in text: String) -> String? {
-        // Recherche du premier Color("XXXLight") ou "XXXDark"
         let pattern = "\(prefix)[A-Za-z]+\(suffix)"
         if let range = text.range(of: pattern, options: .regularExpression) {
             return String(text[range])

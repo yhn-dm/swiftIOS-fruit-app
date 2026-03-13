@@ -1,7 +1,3 @@
-//
-// Vue-modèle pour piloter sereinement le slider d’accueil.
-//
-
 import Foundation
 import SwiftUI
 

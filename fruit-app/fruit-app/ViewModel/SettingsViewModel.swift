@@ -1,7 +1,3 @@
-//
-// Petit vue-modèle pour garder les préférences de l’app au chaud.
-//
-
 import Foundation
 
 final class SettingsViewModel: ObservableObject {

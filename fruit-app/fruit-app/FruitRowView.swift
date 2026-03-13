@@ -1,7 +1,3 @@
-//
-// Une petite tuile qui présente chaque fruit comme sur un joli présentoir.
-//
-
 import SwiftUI
 
 struct FruitRowView: View {

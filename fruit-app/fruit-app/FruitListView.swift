@@ -1,7 +1,3 @@
-//
-// Cette vue rassemble nos fruits en une liste claire et appétissante.
-//
-
 import SwiftUI
 
 struct FruitListView: View {

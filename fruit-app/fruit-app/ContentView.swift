@@ -1,7 +1,3 @@
-//
-// Ici on prépare une entrée en matière colorée et appétissante pour l’utilisateur.
-//
-
 import SwiftUI
 
 struct ContentView: View {

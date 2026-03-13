@@ -1,7 +1,3 @@
-//
-// Petit point d’entrée qui assemble tranquillement nos vues et modèles.
-//
-
 import SwiftUI
 
 @main
